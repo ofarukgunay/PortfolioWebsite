@@ -1,11 +1,17 @@
-/* style.css */
-
+/* Base Styles */
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
   background-color: #f8f9fa;
   color: #333;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark Mode Support */
+body.dark {
+  background-color: #121212;
+  color: #f5f5f5;
 }
 
 header {
@@ -13,6 +19,9 @@ header {
   color: #fff;
   padding: 20px 0;
   text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 50;
 }
 
 header h1 {
@@ -30,10 +39,12 @@ nav a {
   color: #fff;
   text-decoration: none;
   font-weight: bold;
+  transition: color 0.3s ease;
 }
 
 nav a:hover {
   text-decoration: underline;
+  color: #ff9800; /* Hover renk vurgusu */
 }
 
 .container {
@@ -62,10 +73,12 @@ p {
   color: #fff;
   border-radius: 5px;
   text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .social-links a:hover {
   background-color: #00264d;
+  transform: scale(1.05);
 }
 
 .project {
@@ -74,6 +87,12 @@ p {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin-bottom: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 .project h3 {
@@ -92,6 +111,13 @@ form textarea {
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+form input:focus,
+form textarea:focus {
+  border-color: #004080;
+  box-shadow: 0 0 5px rgba(0, 64, 128, 0.5);
 }
 
 form button {
@@ -102,10 +128,12 @@ form button {
   border-radius: 5px;
   cursor: pointer;
   font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 form button:hover {
   background-color: #00264d;
+  transform: scale(1.05);
 }
 
 footer {
@@ -114,4 +142,24 @@ footer {
   padding: 15px 0;
   color: #666;
   font-size: 0.9rem;
+}
+
+/* Scroll-to-Top Button */
+#to-top {
+  display: none;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #004080;
+  color: #fff;
+  border-radius: 50%;
+  padding: 10px 15px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+#to-top:hover {
+  transform: scale(1.2);
 }

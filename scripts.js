@@ -1,11 +1,33 @@
-// Dark Mode Toggle
+// Dark Mode Toggle with Lucide Rotation
 const toggle = document.getElementById("dark-toggle");
+const icon = document.getElementById("dark-icon");
 const root = document.documentElement;
+
+function setTheme(theme) {
+  if (theme === "dark") {
+    root.classList.add("dark");
+    icon.setAttribute("data-lucide", "moon");
+  } else {
+    root.classList.remove("dark");
+    icon.setAttribute("data-lucide", "sun");
+  }
+  lucide.createIcons(); // Lucide ikonlarını güncelle
+}
+
 toggle.addEventListener("click", () => {
   const isDark = root.classList.toggle("dark");
   localStorage.theme = isDark ? "dark" : "light";
+
+  // Icon rotate + fade animation
+  icon.classList.add("rotate-180", "opacity-0");
+  setTimeout(() => {
+    icon.setAttribute("data-lucide", isDark ? "moon" : "sun");
+    lucide.createIcons();
+    icon.classList.remove("rotate-180", "opacity-0");
+  }, 300);
 });
-if (localStorage.theme === "dark") root.classList.add("dark");
+
+setTheme(localStorage.theme || "light");
 
 // AOS Animations Init
 AOS.init({
