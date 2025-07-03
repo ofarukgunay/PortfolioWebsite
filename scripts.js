@@ -1,8 +1,8 @@
-// 🌙 Dark Mode Toggle with Lucide Icon Rotation
 const toggle = document.getElementById("dark-toggle");
 const icon = document.getElementById("dark-icon");
 const root = document.documentElement;
 
+// Set Theme and Update Icon
 function setTheme(theme) {
   if (theme === "dark") {
     root.classList.add("dark");
@@ -11,15 +11,14 @@ function setTheme(theme) {
     root.classList.remove("dark");
     icon.setAttribute("data-lucide", "sun");
   }
-  lucide.createIcons();
+  lucide.createIcons(); // Render Lucide Icons
 }
 
-// Toggle click
+// Toggle Click
 toggle.addEventListener("click", () => {
   const isDark = root.classList.toggle("dark");
   localStorage.theme = isDark ? "dark" : "light";
 
-  // Icon rotation animation
   icon.classList.add("rotate-180", "opacity-0");
   setTimeout(() => {
     icon.setAttribute("data-lucide", isDark ? "moon" : "sun");
@@ -28,7 +27,7 @@ toggle.addEventListener("click", () => {
   }, 300);
 });
 
-// Load saved theme on page load
+// Load saved theme
 setTheme(localStorage.theme || "light");
 
 // 📜 AOS Animations Init
