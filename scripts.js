@@ -21,3 +21,23 @@ window.addEventListener("scroll", () => {
 toTop.addEventListener("click", () =>
   window.scrollTo({ top: 0, behavior: "smooth" })
 );
+
+// Smooth Scroll with Header Offset
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener("click", function (e) {
+    e.preventDefault();
+    const headerHeight = document.querySelector("header").offsetHeight; // Dinamik header yüksekliği
+    const targetID = this.getAttribute("href");
+    const targetElement = document.querySelector(targetID);
+
+    if (targetElement) {
+      const elementPosition = targetElement.offsetTop;
+      const offsetPosition = elementPosition - headerHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  });
+});
