@@ -18,6 +18,7 @@ load_dotenv(ROOT_DIR / '.env')
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
+collection = db["status_checks"]  # Koleksiyon referansı
 
 # Create the main app without a prefix
 app = FastAPI()
@@ -30,10 +31,14 @@ api_router = APIRouter(prefix="/api")
 class StatusCheck(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     client_name: str
+    email: str
+    message: str
     timestamp: datetime = Field(default_factory=datetime.utcnow)
 
 class StatusCheckCreate(BaseModel):
     client_name: str
+    email: str
+    message: str
 
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
@@ -44,12 +49,12 @@ async def root():
 async def create_status_check(input: StatusCheckCreate):
     status_dict = input.dict()
     status_obj = StatusCheck(**status_dict)
-    _ = await db.status_checks.insert_one(status_obj.dict())
+    await collection.insert_one(status_obj.dict())
     return status_obj
 
 @api_router.get("/status", response_model=List[StatusCheck])
 async def get_status_checks():
-    status_checks = await db.status_checks.find().to_list(1000)
+    status_checks = await collection.find().to_list(1000)
     return [StatusCheck(**status_check) for status_check in status_checks]
 
 # Include the router in the main app
@@ -58,7 +63,7 @@ app.include_router(api_router)
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
-    allow_origins=["*"],
+    allow_origins=["http://localhost:3000", "https://omerfarukgunay.com"], 
     allow_methods=["*"],
     allow_headers=["*"],
 )
