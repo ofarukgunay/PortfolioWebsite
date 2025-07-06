@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { sendMessage } from "../hooks/useApi";
 import { Button } from "./ui/button";
 import {
   Card,
@@ -291,16 +292,11 @@ const Portfolio = () => {
     }
   };
 
-  const onSubmit = (data) => {
-    // Mock form submission
-    toast({
-      title: language === "en" ? "Message sent!" : "Mesaj gönderildi!",
-      description:
-        language === "en"
-          ? "Thank you for your message. I'll get back to you soon!"
-          : "Mesajınız için teşekkürler. Size en kısa sürede dönüş yapacağım!",
-    });
-    reset();
+  const onSubmit = async (data) => {
+    const result = await sendMessage(data, language); // API çağrısı
+    if (result) {
+      reset(); // Formu temizle
+    }
   };
 
   useEffect(() => {
