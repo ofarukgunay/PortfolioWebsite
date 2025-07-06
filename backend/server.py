@@ -57,13 +57,17 @@ async def get_status_checks():
     status_checks = await collection.find().to_list(1000)
     return [StatusCheck(**status_check) for status_check in status_checks]
 
+@api_router.options("/{rest_of_path:path}")
+async def preflight_handler():
+    return {"message": "Preflight OK"}
+
 # Include the router in the main app
 app.include_router(api_router)
 
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
-    allow_origins=["https://portfolio-website-cbs4pti5-ofarukgunays-projects.vercel.app"], 
+    allow_origins=["*"], 
     allow_methods=["*"],
     allow_headers=["*"],
 )
