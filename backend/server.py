@@ -11,10 +11,6 @@ from typing import List
 import uuid
 from datetime import datetime
 
-# Get the port from environment variables or default to 8000
-port = int(os.environ.get("PORT", 8000))
-uvicorn.run(app, host="0.0.0.0", port=port)
-
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
@@ -82,3 +78,10 @@ logger = logging.getLogger(__name__)
 @app.on_event("shutdown")
 async def shutdown_db_client():
     client.close()
+
+# 🌟 Dinamik port kontrolü (Render için)
+if __name__ == "__main__":
+    import os
+
+    port = int(os.environ.get("PORT", 8000))  # Render PORT'u al, yoksa 8000
+    uvicorn.run(app, host="0.0.0.0", port=port)
