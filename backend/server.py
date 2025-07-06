@@ -1,6 +1,7 @@
 from fastapi import FastAPI, APIRouter
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
+import uvicorn
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
@@ -10,6 +11,9 @@ from typing import List
 import uuid
 from datetime import datetime
 
+# Get the port from environment variables or default to 8000
+port = int(os.environ.get("PORT", 8000))
+uvicorn.run(app, host="0.0.0.0", port=port)
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -63,7 +67,7 @@ app.include_router(api_router)
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
-    allow_origins=["*"], 
+    allow_origins=["https://portfolio-website-cbs4pti5-ofarukgunays-projects.vercel.app"], 
     allow_methods=["*"],
     allow_headers=["*"],
 )
