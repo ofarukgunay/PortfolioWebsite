@@ -9,7 +9,11 @@ export const sendMessage = async (data, language) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ client_name: data.name }),
+      body: JSON.stringify({
+        client_name: data.name, // 🔥 Backend modeline uyumlu
+        email: data.email,
+        message: data.message,
+      }),
     });
 
     if (!response.ok) throw new Error("API request failed!");

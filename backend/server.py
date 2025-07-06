@@ -10,6 +10,8 @@ from typing import List
 import uuid
 from datetime import datetime
 
+# Get the port from environment variables or default to 8000
+port = int(os.environ.get("PORT", 8000))
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
