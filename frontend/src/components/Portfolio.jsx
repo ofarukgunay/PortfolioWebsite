@@ -21,6 +21,7 @@ import {
   ExternalLink,
   Send,
 } from "lucide-react";
+import MediumIcon from "./ui/icons"; // Import the Medium icon component
 import { useForm } from "react-hook-form";
 import { useToast } from "../hooks/use-toast";
 
@@ -273,6 +274,12 @@ const Portfolio = () => {
       icon: Instagram,
       color: "hover:text-pink-600",
     },
+    {
+      name: "Medium",
+      url: "https://medium.com/@omerfarukgunay",
+      icon: MediumIcon,
+      color: "hover:text-green-600",
+    },
   ];
 
   const toggleTheme = () => {
@@ -418,7 +425,21 @@ const Portfolio = () => {
                   rel="noopener noreferrer"
                   className={`text-gray-600 dark:text-gray-400 ${social.color} transition-colors transform hover:scale-110 duration-200`}
                 >
-                  <social.icon className="h-6 w-6" />
+                  {social.icon === "medium" ? (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 1043.63 592.71"
+                      fill="currentColor"
+                      className="h-6 w-6"
+                      aria-hidden="true"
+                    >
+                      <path d="M588.67 296.35c0 163.74-131.61 296.35-294.33 296.35S0 460.09 0 296.35 131.61 0 294.33 0s294.34 132.61 294.34 296.35zM711.56 296.35c0 152.74-68.28 276.35-152.51 276.35s-152.5-123.61-152.5-276.35S474.82 20 559.05 20s152.51 123.61 152.51 276.35zM1033.63 296.35c0 146.2-30.34 264.35-67.73 264.35s-67.73-118.15-67.73-264.35S928.52 32 965.9 32s67.73 118.15 67.73 264.35z" />
+                    </svg>
+                  ) : (
+                    <social.icon className="h-6 w-6" />
+                  )}
                 </a>
               ))}
             </div>
